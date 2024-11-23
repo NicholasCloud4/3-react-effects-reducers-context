@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+
+import Login from './Components/Login/Login';
+import Home from './Components/Home/Home.js';
+import MainHeader from './Components/MainHeader/MainHeader.js';
+import Demo from './Components/ReducerDemo/Demo.js';
+import AuthContext from './Components/Context/AuthContext';
 
 function App() {
-    console.log("APP COMPONENT");
-    const [resourceType, setResourceType] = useState("HOME");
-
-
-
-    useEffect(() => {
-        console.log("RESOURCE TYPE", resourceType);
-    }, [resourceType])
-
+    let ctx = useContext(AuthContext)
     return (
-        <div className="App">
-            <button onClick={() => setResourceType("HOME")}>HOME</button>
-            <button onClick={() => setResourceType("ABOUT")}>ABOUT</button>
-            <button onClick={() => setResourceType("CONTACT")}>CONTACT</button>
-            <h3>{resourceType}</h3>
-        </div>
+        <>
+            <MainHeader />
+            <main>
+                {!ctx.isLoggedIn && <Login />}
+                {ctx.isLoggedIn && <Home />}
+            </main>
+        </>
     );
 }
 
